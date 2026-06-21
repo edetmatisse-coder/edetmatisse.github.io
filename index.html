@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Matisse Edet · Image & Culture Board</title>
+<meta name="description" content="Vidéaste et créateur de contenu. Surf, skate, lifestyle. Ancré en Bretagne." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,600;1,400&family=Archivo+Narrow:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#0c0c0e;
+    --paper:#f4f1ea;
+    --paper-dim:#cfc9bd;
+    --salt:#e8e4da;
+    --accent:#ff4d23;
+    --sea:#3d5a54;
+    --line:rgba(244,241,234,.14);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--ink);color:var(--paper);
+    font-family:'Archivo',system-ui,sans-serif;
+    font-size:clamp(15px,1.05vw,17px);line-height:1.6;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;
+    opacity:.05;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  img{display:block;width:100%;height:100%;object-fit:cover}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 clamp(20px,5vw,80px)}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:18px clamp(20px,5vw,80px);mix-blend-mode:difference}
+  nav .mark{font-family:'Archivo Narrow';font-weight:600;letter-spacing:.18em;text-transform:uppercase;font-size:13px}
+  nav ul{display:flex;gap:26px;list-style:none}
+  nav ul a{font-family:'Archivo Narrow';font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-size:12px;opacity:.85;transition:opacity .3s}
+  nav ul a:hover{opacity:1}
+  @media(max-width:680px){nav ul{display:none}}
+
+  /* HERO */
+  .hero{position:relative;height:100svh;min-height:600px;overflow:hidden}
+  .hero img{position:absolute;inset:0;object-position:center 28%;filter:saturate(1.05) contrast(1.05)}
+  .hero::before{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(12,12,14,.55) 0%,rgba(12,12,14,.05) 35%,rgba(12,12,14,.75) 100%)}
+  .hero-copy{position:absolute;z-index:3;left:clamp(20px,5vw,80px);right:clamp(20px,5vw,80px);bottom:clamp(36px,7vh,90px)}
+  .hero h1{font-family:'Anton';font-weight:400;text-transform:uppercase;font-size:clamp(54px,15vw,200px);line-height:.84;letter-spacing:-.01em;color:var(--paper)}
+  .hero h1 em{font-style:normal;color:var(--accent)}
+  .hero .sub{margin-top:22px;max-width:540px;font-family:'Archivo Narrow';font-weight:500;letter-spacing:.04em;font-size:clamp(14px,1.5vw,18px);text-transform:uppercase;color:var(--paper-dim)}
+  .scroll-tag{position:absolute;z-index:3;bottom:30px;right:clamp(20px,5vw,80px);writing-mode:vertical-rl;font-family:'Archivo Narrow';font-size:11px;letter-spacing:.3em;text-transform:uppercase;opacity:.6}
+  @media(max-width:680px){.scroll-tag{display:none}}
+
+  /* SECTION SHELL */
+  section{position:relative;padding:clamp(70px,11vh,150px) 0}
+  .sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:48px;border-bottom:1px solid var(--line);padding-bottom:18px}
+  .sec-num{font-family:'Archivo Narrow';font-size:13px;letter-spacing:.2em;color:var(--accent)}
+  .sec-title{font-family:'Anton';text-transform:uppercase;font-size:clamp(30px,5.5vw,68px);line-height:.9;letter-spacing:-.01em}
+  .sec-meta{margin-left:auto;font-family:'Archivo Narrow';font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--paper-dim);text-align:right;max-width:240px}
+
+  /* INTRO */
+  .intro p{font-size:clamp(20px,2.6vw,34px);line-height:1.32;max-width:880px;font-weight:400}
+  .intro p .hl{color:var(--accent)}
+  .intro p em{font-style:italic;color:var(--salt)}
+
+  /* FILMS : éditorial, décalé */
+  .film-lead{position:relative;overflow:hidden;border:1px solid var(--line);background:#000;aspect-ratio:16/9}
+  .film-lead video{width:100%;height:100%;object-fit:cover}
+  .film-duo{display:grid;grid-template-columns:.85fr 1.3fr;gap:clamp(20px,4vw,56px);align-items:center;margin-top:clamp(24px,5vw,60px)}
+  @media(max-width:820px){.film-duo{grid-template-columns:1fr;gap:24px}}
+  .film-vert{position:relative;overflow:hidden;border:1px solid var(--line);background:#000;aspect-ratio:3/2}
+  .film-vert video{width:100%;height:100%;object-fit:cover}
+  .film-words .kicker{font-family:'Archivo Narrow';font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+  .film-words h3{font-family:'Anton';text-transform:uppercase;font-size:clamp(28px,4vw,52px);line-height:.94;margin-bottom:18px}
+  .film-words p{color:var(--salt);max-width:38ch}
+  .cap{position:absolute;left:14px;bottom:12px;z-index:3;font-family:'Archivo Narrow';font-size:11px;letter-spacing:.16em;text-transform:uppercase;background:rgba(12,12,14,.6);padding:5px 9px;backdrop-filter:blur(4px)}
+  .play-hint{position:absolute;top:14px;right:14px;z-index:3;font-family:'Archivo Narrow';font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.7;pointer-events:none}
+
+  /* PHOTO : mosaïque asymétrique magazine */
+  .ph{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(12px,1.6vw,22px);align-items:start}
+  .cell{position:relative;overflow:hidden;border:1px solid var(--line)}
+  .cell img{transition:transform .9s cubic-bezier(.16,1,.3,1);filter:saturate(1.02)}
+  .cell:hover img{transform:scale(1.04)}
+  .cell .tag{position:absolute;left:12px;bottom:10px;z-index:3;font-family:'Archivo Narrow';font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--paper);text-shadow:0 1px 3px rgba(0,0,0,.6)}
+  /* placements volontairement décalés */
+  .p1{grid-column:1/8;aspect-ratio:3/2}
+  .p2{grid-column:9/13;aspect-ratio:3/4;margin-top:48px}
+  .p3{grid-column:1/5;aspect-ratio:4/5}
+  .p4{grid-column:5/9;aspect-ratio:3/2;margin-top:-60px}
+  .p5{grid-column:9/13;aspect-ratio:3/2;margin-top:18px}
+  .p6{grid-column:2/7;aspect-ratio:3/2;margin-top:30px}
+  .p7{grid-column:7/13;aspect-ratio:21/10;margin-top:-30px}
+  @media(max-width:820px){
+    .p1,.p2,.p3,.p4,.p5,.p6,.p7{grid-column:1/13;margin-top:0;aspect-ratio:3/2}
+  }
+
+  /* AFFICHES */
+  .affiche-block{position:relative;border:1px solid var(--line);overflow:hidden;background:#111}
+  .affiche-block img{filter:contrast(1.03)}
+
+  /* ABOUT */
+  .about{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,90px);align-items:start}
+  @media(max-width:820px){.about{grid-template-columns:1fr}}
+  .about-text p{font-size:clamp(16px,1.5vw,19px);margin-bottom:18px;color:var(--salt)}
+  .about-text p strong{color:var(--paper);font-weight:600}
+  .about-text a{color:var(--accent);border-bottom:1px solid rgba(255,77,35,.4);transition:border-color .3s}
+  .about-text a:hover{border-color:var(--accent)}
+  .gearbox{border:1px solid var(--line)}
+  .gearbox .cap{position:static;background:none;backdrop-filter:none;padding:12px 14px;display:flex;justify-content:space-between;color:var(--paper-dim)}
+  .facts{margin-top:26px;display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  .fact{background:var(--ink);padding:16px 18px}
+  .fact dt{font-family:'Archivo Narrow';font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:5px}
+  .fact dd{font-family:'Archivo Narrow';font-size:15px;letter-spacing:.04em}
+
+  /* CONTACT */
+  .contact{border-top:1px solid var(--line);padding:clamp(60px,10vh,120px) 0 60px}
+  .contact h2{font-family:'Anton';text-transform:uppercase;font-size:clamp(40px,9vw,120px);line-height:.86;margin-bottom:30px}
+  .contact h2 a{transition:color .3s}
+  .contact h2 a:hover{color:var(--accent)}
+  .contact-row{display:flex;flex-wrap:wrap;gap:30px 50px;font-family:'Archivo Narrow';font-size:14px;letter-spacing:.1em;text-transform:uppercase}
+  .contact-row a{border-bottom:1px solid transparent;padding-bottom:2px;transition:border-color .3s}
+  .contact-row a:hover{border-color:var(--accent)}
+  footer{margin-top:70px;display:flex;justify-content:space-between;font-family:'Archivo Narrow';font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--paper-dim);flex-wrap:wrap;gap:10px}
+
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.cell img{transition:none}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="mark">Matisse Edet</div>
+  <ul>
+    <li><a href="#films">Films</a></li>
+    <li><a href="#photo">Photo</a></li>
+    <li><a href="#affiches">Affiches</a></li>
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <img src="assets/skate-hero.jpg" alt="Skate, frontside air filmé en argentique" />
+  <div class="hero-copy">
+    <h1>Image<br>&amp; culture<br><em>board</em></h1>
+    <p class="sub">Vidéaste & créateur de contenu · surf · skate · lifestyle. Ancré en Bretagne.</p>
+  </div>
+  <div class="scroll-tag">Scroll ↓ Vannes 47.6°N</div>
+</header>
+
+<section class="intro wrap" id="intro">
+  <div class="reveal">
+    <p>Huit ans de planche sous les pieds. Je filme ce que je connais de l'intérieur : <span class="hl">le skate, le surf, la culture qui va avec</span>. Pas un décor. <em>Un terrain</em>.</p>
+  </div>
+</section>
+
+<!-- FILMS -->
+<section id="films">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">01</span>
+      <h2 class="sec-title">Films</h2>
+      <p class="sec-meta">Surf & skate · capté sur le vif</p>
+    </div>
+
+    <div class="film-lead reveal">
+      <video src="assets/clip-01.mp4" poster="assets/poster-01.jpg" controls preload="none" playsinline></video>
+      <span class="cap">Session</span>
+      <span class="play-hint">▶ Lecture</span>
+    </div>
+
+    <div class="film-duo">
+      <div class="film-words reveal">
+        <div class="kicker">Tourné à la VX1000</div>
+        <h3>Le grain<br>avant le pixel</h3>
+        <p>La VX1000, c'est le rendu brut du skate des années 2000. Je filme avec pour l'ambiance, pas pour la définition. Le feeling avant la technique.</p>
+      </div>
+      <div class="film-vert reveal">
+        <video src="assets/clip-02.mp4" poster="assets/poster-02.jpg" controls preload="none" playsinline></video>
+        <span class="cap">Lines · VX1000</span>
+        <span class="play-hint">▶ Lecture</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTO -->
+<section id="photo">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">02</span>
+      <h2 class="sec-title">Photo</h2>
+      <p class="sec-meta">Surf & skate · côte bretonne</p>
+    </div>
+    <div class="ph reveal">
+      <div class="cell p1"><img src="assets/surf-07.jpg" alt="Surfeur dans une vague creuse, Bretagne" loading="lazy"><span class="tag">Reef break</span></div>
+      <div class="cell p2"><img src="assets/surf-01.jpg" alt="Surf au coucher de soleil" loading="lazy"><span class="tag">Golden hour</span></div>
+      <div class="cell p3"><img src="assets/surf-05.jpg" alt="Surfeur longboard, port en fond" loading="lazy"><span class="tag">Longboard</span></div>
+      <div class="cell p4"><img src="assets/surf-06.jpg" alt="Surfeur sur une vague verte" loading="lazy"><span class="tag">Reef break</span></div>
+      <div class="cell p5"><img src="assets/surf-02.jpg" alt="Line-up, plusieurs surfeurs" loading="lazy"><span class="tag">Line-up</span></div>
+      <div class="cell p6"><img src="assets/surf-04.jpg" alt="Surfeur, village breton en fond" loading="lazy"><span class="tag">Beach break</span></div>
+      <div class="cell p7"><img src="assets/surf-03.jpg" alt="Côte rocheuse bretonne" loading="lazy"><span class="tag">Spot check</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- AFFICHES -->
+<section id="affiches">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">03</span>
+      <h2 class="sec-title">Affiches</h2>
+      <p class="sec-meta">Graphisme · événements & retail sport</p>
+    </div>
+    <div class="affiche-block reveal">
+      <img src="assets/affiches.jpg" alt="Sélection d'affiches : Action Line, festival de parapente, tournois de padel" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">04</span>
+      <h2 class="sec-title">À propos</h2>
+    </div>
+    <div class="about reveal">
+      <div class="about-text">
+        <p>Je m'appelle <strong>Matisse</strong>, 23 ans, basé dans le Morbihan.</p>
+        <p>Surfeur et skateur depuis huit ans, je baigne dans la culture board au quotidien, et c'est ce qui nourrit mon travail d'image. Je filme à la <strong>VX1000</strong> par goût du rendu brut et authentique, et je touche aussi à la photo et au graphisme : affiches d'événements, contenus pour les réseaux, identité visuelle.</p>
+        <p>En parallèle, je suis un <strong><a href="https://www.win-sport-school.com/formation/bachelor-responsable-evenementiel-sportif" target="_blank" rel="noopener">Bachelor Marketing et Événementiel Sportif</a></strong>. Double casquette : je crée du contenu, mais je pense aussi à ce qu'il raconte et à ce qu'il rapporte. Ligne éditoriale, partenariats, performance.</p>
+        <p>Je cherche une alternance où mettre les deux au service d'un univers qui me passionne : <strong>le sport, l'outdoor, la glisse.</strong></p>
+      </div>
+      <div>
+        <div class="gearbox">
+          <img src="assets/vx1000.jpg" alt="Setup Sony VX1000 : caméra, cassettes DV, fisheye, batteries" loading="lazy" />
+          <div class="cap"><span>The setup</span><span>Sony VX1000 + fisheye</span></div>
+        </div>
+        <dl class="facts">
+          <div class="fact"><dt>Base</dt><dd>Vannes, Bretagne</dd></div>
+          <div class="fact"><dt>Mobilité</dt><dd>Bretagne / France</dd></div>
+          <div class="fact"><dt>Dispo</dt><dd>Septembre 2026</dd></div>
+          <div class="fact"><dt>Pratique</dt><dd>Surf · Skate · 8 ans</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <h2 class="reveal">On bosse<br>ensemble&nbsp;? <a href="mailto:edet.matisse@gmail.com">→</a></h2>
+    <div class="contact-row reveal">
+      <a href="mailto:edet.matisse@gmail.com">edet.matisse@gmail.com</a>
+      <a href="https://www.instagram.com/matisse.edet/" target="_blank" rel="noopener">@matisse.edet ↗</a>
+      <a href="tel:0635437654">06 35 43 76 54</a>
+      <a href="assets/cv-matisse.pdf">CV (PDF) ↓</a>
+    </div>
+    <footer>
+      <span>© 2026 Matisse Edet</span>
+      <span>Image & culture board</span>
+      <span>Made in Bretagne</span>
+    </footer>
+  </div>
+</section>
+
+<script>
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  const vids=[...document.querySelectorAll('video')];
+  vids.forEach(v=>v.addEventListener('play',()=>vids.forEach(o=>{if(o!==v)o.pause()})));
+</script>
+</body>
+</html>
